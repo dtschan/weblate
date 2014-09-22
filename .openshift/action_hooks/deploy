@@ -4,6 +4,10 @@
 # up again.  This script gets executed directly, so it could be python, php,
 # ruby, etc.
 
+if [ ! -e "$OPENSHIFT_DATA_DIR/.installed" ]; then
+	exit 0
+fi
+
 source $OPENSHIFT_HOMEDIR/python/virtenv/bin/activate
 
 if [ ! -s $OPENSHIFT_DATA_DIR/weblate.db ]; then
