@@ -1,5 +1,5 @@
 #! /bin/sh
 
-if [ -e $OPENSHIFT_DATA_DIR/.install ]; then
+if [ ! -e $OPENSHIFT_DATA_DIR/.install ]; then
 	nohup $OPENSHIFT_REPO_DIR/openshift/install.sh >/dev/null 2>&1 </dev/null &
 fi
