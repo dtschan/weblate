@@ -11,6 +11,7 @@ sed -e 's/Django[<>=].*/Django==1.6/' $OPENSHIFT_REPO_DIR/requirements.txt >/tmp
 > $OPENSHIFT_DATA_DIR/install.log
 
 pip install -r /tmp/requirements.txt >$OPENSHIFT_DATA_DIR/install.log && \
-ctl_all restart && \
+gear stop && \
+gear start && \
 touch $OPENSHIFT_DATA_DIR/.installed && \
 rm OPENSHIFT_DATA_DIR/.install
