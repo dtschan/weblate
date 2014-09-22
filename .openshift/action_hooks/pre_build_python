@@ -1,4 +1,4 @@
-if [ "$DELAYED_INSTALL" ]; then
+if [ "$INSTALL" ]; then
 	sed -e 's/Django[<>=].*/Django==1.6/' $OPENSHIFT_REPO_DIR/requirements.txt >/tmp/requirements.txt
 else
 	>/tmp/requirements.txt
