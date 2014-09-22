@@ -1,4 +1,4 @@
-if [ -e $OPENSHIFT_DATA_DIR/.install || -e $OPENSHIFT_DATA_DIR/.installed ]; then
+if [ -e $OPENSHIFT_DATA_DIR/.install ] || [ -e $OPENSHIFT_DATA_DIR/.installed ]; then
 	sed -e 's/Django[<>=].*/Django==1.6/' $OPENSHIFT_REPO_DIR/requirements.txt >$OPENSHIFT_DATA_DIR/requirements.txt
 else
 	>$OPENSHIFT_DATA_DIR/requirements.txt
