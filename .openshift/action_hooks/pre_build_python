@@ -1,1 +1,7 @@
-export OPENSHIFT_PYTHON_REQUIREMENTS_PATH=requirements-openshift.txt
+if [ "$DELAYED_INSTALL" ]; then
+	sed -e 's/Django[<>=].*/Django==1.6/' $OPENSHIFT_REPO_DIR/requirements.txt >/tmp/requirements.txt
+else
+	>/tmp/requirements.txt
+fi
+
+export OPENSHIFT_PYTHON_REQUIREMENTS_PATH=/tmp/requirements.txt
