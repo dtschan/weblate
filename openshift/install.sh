@@ -1,4 +1,4 @@
 #! /bin/sh
 
-export INSTALL=1
-gear deploy >$OPENSHIFT_DATA_DIR/install.log && touch $OPENSHIFT_DATA_DIR/.installed
+touch $OPENSHIFT_DATA_DIR/.install
+gear build >$OPENSHIFT_DATA_DIR/install.log && gear stop && gear start && touch $OPENSHIFT_DATA_DIR/.installed && rm OPENSHIFT_DATA_DIR/.install
