@@ -1,2 +1,2 @@
 # Don't let OpenShift install the dependencies directly as this leds to timeouts during gear creation and deploys
-export OPENSHIFT_PYTHON_REQUIREMENTS_PATH=
+export OPENSHIFT_PYTHON_REQUIREMENTS_PATH=/dev/null
