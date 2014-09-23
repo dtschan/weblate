@@ -1,0 +1,12 @@
+# Don't let OpenShift install the dependencies directly as this leads to timeouts during gear creation and deploys
+if [ ! -e $OPENSHIFT_REPO_DIR/requirements-mandatory.txt ]; then
+	mv requirements.txt requirements-mandatory.txt
+fi
+
+# Show install page as long as the app is not completely installed
+mkdir -p $OPENSHIFT_REPO_DIR/wsgi
+if [ -e "$OPENSHIFT_DATA_DIR/.installed" ]; then
+	ln -sf $OPENSHIFT_REPO_DIR/openshift/wsgi.py $OPENSHIFT_REPO_DIR/wsgi/application
+else
+	ln -sf $OPENSHIFT_REPO_DIR/openshift/wsgi_install.py $OPENSHIFT_REPO_DIR/wsgi/application
+fi

@@ -1,5 +1,0 @@
-if [ -e "$OPENSHIFT_DATA_DIR/.installed" ]; then
-	export OPENSHIFT_PYTHON_WSGI_APPLICATION=openshift/wsgi.py
-else
-	export OPENSHIFT_PYTHON_WSGI_APPLICATION=openshift/wsgi_install.py
-fi
