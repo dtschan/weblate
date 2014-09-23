@@ -10,3 +10,6 @@ if [ -e "$OPENSHIFT_DATA_DIR/.installed" ]; then
 else
 	ln -sf $OPENSHIFT_REPO_DIR/openshift/wsgi_install.py $OPENSHIFT_REPO_DIR/wsgi/application
 fi
+
+# Downgrade git requirement for older OpenShift Enterprise 2 versions
+sed -i -e 's/'1.7.2'/'1.7.1'/ $OPENSHIFT_REPO_DIR/weblate/requirements.py
