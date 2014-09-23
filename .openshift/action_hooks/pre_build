@@ -1,6 +1,6 @@
 # Don't let OpenShift install the dependencies directly as this leads to timeouts during gear creation and deploys
 if [ ! -e $OPENSHIFT_REPO_DIR/requirements-mandatory.txt ]; then
-	mv requirements.txt requirements-mandatory.txt
+	mv $OPENSHIFT_REPO_DIR/requirements.txt $OPENSHIFT_REPO_DIR/requirements-mandatory.txt
 fi
 
 # Show install page as long as the app is not completely installed
