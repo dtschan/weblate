@@ -11,8 +11,8 @@ conn = sqlite3.connect(os.environ['OPENSHIFT_DATA_DIR'] + '/weblate.db')
 c    = conn.cursor()
 
 # Grab the default security info
-#c.execute('SELECT password FROM AUTH_USER WHERE id = 1')
-pw_info = 'sha1$9ddf7$465f37505d88fcf05961eab98d7e0a2eabbc9d70'
+c.execute('SELECT password FROM AUTH_USER WHERE id = 1')
+#pw_info = 'sha1$9ddf7$465f37505d88fcf05961eab98d7e0a2eabbc9d70'
 
 # The password is stored as [hashtype]$[salt]$[hashed]
 pw_fields = pw_info.split("$")
