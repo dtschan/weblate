@@ -48,6 +48,8 @@ if [ ! -s $OPENSHIFT_DATA_DIR/CREDENTIALS ]; then
   python "$OPENSHIFT_REPO_DIR".openshift/action_hooks/secure_db.py | tee ${OPENSHIFT_DATA_DIR}/CREDENTIALS
 fi
 
-touch $OPENSHIFT_DATA_DIR/.installed && \
-gear stop && \
-gear start
+ln -sf $OPENSHIFT_REPO_DIR/openshift/wsgi.py $OPENSHIFT_REPO_DIR/wsgi/application
+touch $OPENSHIFT_DATA_DIR/.installed
+
+# gear stop && \
+# gear start
