@@ -11,9 +11,7 @@ source $OPENSHIFT_HOMEDIR/python/virtenv/bin/activate
 
 sed -e 's/Django[<>=].*/Django==1.6/' $OPENSHIFT_REPO_DIR/requirements.txt >/tmp/requirements.txt
 
-> $OPENSHIFT_DATA_DIR/install.log
-
-pip install -r /tmp/requirements.txt >$OPENSHIFT_DATA_DIR/install.log &&
+pip install -r /tmp/requirements.txt &&
 
 if [ ! -s $OPENSHIFT_DATA_DIR/weblate.db ]; then
   rm -f ${OPENSHIFT_DATA_DIR}/CREDENTIALS
@@ -30,7 +28,7 @@ if [ ! -s $OPENSHIFT_REPO_DIR/weblate/fixtures/initial_data.json ]; then
             "domain":"${OPENSHIFT_APP_DNS}"
         }
     }]
-  EOF
+	EOF
 fi
 
 echo "Executing 'python $OPENSHIFT_REPO_DIR/openshift/manage.py syncdb --noinput'"
@@ -52,5 +50,4 @@ fi
 
 touch $OPENSHIFT_DATA_DIR/.installed && \
 gear stop && \
-gear start && \
-rm OPENSHIFT_DATA_DIR/.install
+gear start
