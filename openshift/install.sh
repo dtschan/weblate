@@ -9,7 +9,7 @@ touch $OPENSHIFT_DATA_DIR/.install
 
 source $OPENSHIFT_HOMEDIR/python/virtenv/bin/activate
 
-sed -e 's/Django[<>=].*/Django==1.6/' $OPENSHIFT_REPO_DIR/requirements.txt >/tmp/requirements.txt
+sed -e 's/Django[<>=].*/Django==1.6/' $OPENSHIFT_REPO_DIR/requirements-mandatory.txt >/tmp/requirements.txt
 
 pip install -r /tmp/requirements.txt &&
 
