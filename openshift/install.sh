@@ -51,5 +51,5 @@ fi
 ln -sf $OPENSHIFT_REPO_DIR/openshift/wsgi.py $OPENSHIFT_REPO_DIR/wsgi/application
 touch $OPENSHIFT_DATA_DIR/.installed
 
-# gear stop && \
-# gear start
+gear stop
+gear start
