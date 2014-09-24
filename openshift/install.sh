@@ -1,5 +1,11 @@
 #! /bin/sh
 
+# Log and execute given command, identing its output for easy filtering.
+function sh {
+	echo "'$1'"
+  /bin/sh -c "$1" 2>&1 | sed -e 's/^/  /'
+}
+
 set -e
 trap "rm $OPENSHIFT_DATA_DIR/.install" EXIT
 
@@ -31,21 +37,16 @@ if [ ! -s $OPENSHIFT_REPO_DIR/weblate/fixtures/initial_data.json ]; then
 	EOF
 fi
 
-echo "Executing 'python $OPENSHIFT_REPO_DIR/openshift/manage.py syncdb --noinput'"
-python "$OPENSHIFT_REPO_DIR"openshift/manage.py syncdb --noinput
+sh "python ${OPENSHIFT_REPO_DIR}/openshift/manage.py syncdb --noinput"
 
-echo "Executing 'python $OPENSHIFT_REPO_DIR/openshift/manage.py migrate'"
-python "$OPENSHIFT_REPO_DIR"openshift/manage.py migrate
+sh "python ${OPENSHIFT_REPO_DIR}/openshift/manage.py migrate"
 
-echo "Executing 'python $OPENSHIFT_REPO_DIR/openshift/manage.py collectstatic --noinput'"
-python "$OPENSHIFT_REPO_DIR"openshift/manage.py collectstatic --noinput
+sh "python ${OPENSHIFT_REPO_DIR}/openshift/manage.py collectstatic --noinput"
 
 if [ ! -s $OPENSHIFT_DATA_DIR/CREDENTIALS ]; then
-  echo "Executing 'python $OPENSHIFT_REPO_DIR/openshift/manage.py createadmin'"
-  python "$OPENSHIFT_REPO_DIR"openshift/manage.py createadmin
-
   echo "Generating Django Admin credentials and writing them to ${OPENSHIFT_DATA_DIR}/CREDENTIALS"
-  python "$OPENSHIFT_REPO_DIR".openshift/action_hooks/secure_db.py | tee ${OPENSHIFT_DATA_DIR}/CREDENTIALS
+  sh "python ${OPENSHIFT_REPO_DIR}/openshift/manage.py createadmin"
+  sh "python ${OPENSHIFT_REPO_DIR}/.openshift/action_hooks/secure_db.py | tee ${OPENSHIFT_DATA_DIR}/CREDENTIALS"
 fi
 
 ln -sf $OPENSHIFT_REPO_DIR/openshift/wsgi.py $OPENSHIFT_REPO_DIR/wsgi/application
