@@ -219,9 +219,9 @@ pre {
             <section>
 				Weblate is beeing installed. Please wait a few minutes and refresh this page.
              
-<pre>
-{0}
-</pre>                 
+<pre>'''
++ os.popen('cat ${OPENSHIFT_DATA_DIR}/install.log | grep -v \'^ \'').read() +
+'''</pre>                 
 
             </section>
 
@@ -229,7 +229,7 @@ pre {
 
 </section>
 </body>
-</html>'''.format(os.popen('cat ${OPENSHIFT_DATA_DIR}/install.log | grep -v \'^ \'').read())
+</html>'''
 
   status = '200 OK'
   response_headers = [('Content-Type', ctype), ('Content-Length', str(len(response_body)))]
