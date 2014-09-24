@@ -219,8 +219,8 @@ pre {
             <section>
 				Weblate is beeing installed. Please wait a few minutes and refresh this page.
              
-<pre>'''
-+ os.popen('cat ${OPENSHIFT_DATA_DIR}/install.log | grep -v \'^ \'').read() +
+<pre>''' + \
+os.popen('cat ${OPENSHIFT_DATA_DIR}/install.log | grep -v \'^ \'').read() + \
 '''</pre>                 
 
             </section>
