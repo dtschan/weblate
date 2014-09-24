@@ -12,6 +12,7 @@ c    = conn.cursor()
 
 # Grab the default security info
 c.execute('SELECT password FROM AUTH_USER WHERE id = 1')
+pw_info = c.fetchone()[0]
 #pw_info = 'sha1$9ddf7$465f37505d88fcf05961eab98d7e0a2eabbc9d70'
 
 # The password is stored as [hashtype]$[salt]$[hashed]
