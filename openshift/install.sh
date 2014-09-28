@@ -2,7 +2,7 @@
 
 # Log and execute given command, identing its output for easy filtering.
 function sh {
-	echo "'$1'"
+  echo "Executing '$1'"
   /bin/sh -c "$1" 2>&1 | sed -e 's/^/  /'
 }
 
