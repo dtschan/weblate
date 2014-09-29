@@ -77,7 +77,7 @@ pre {
     <p>Weblate is beeing installed. Please wait a few minutes and refresh this page.</p>
              
     <pre>''' + \
-os.popen('cat ${OPENSHIFT_DATA_DIR}/install.log | grep -v \'^ \'').read() + \
+os.popen('cat ${OPENSHIFT_DATA_DIR}/install.log | grep \'^[^ ]\\|setup.py install\' | sed \'s,/var/lib/openshift/[a-z0-9]\{24\},~,\'').read() + \
 '''</pre>                
   </div>
 </body>
