@@ -169,6 +169,9 @@ imp.find_module('openshiftlibs')
 import openshiftlibs
 use_keys = openshiftlibs.openshift_secure(default_keys)
 
+# Make this unique, and don't share it with anybody.
+SECRET_KEY = use_keys['SECRET_KEY']
+
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     ('django.template.loaders.cached.Loader', (
