@@ -160,8 +160,14 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = 'jm8fqjlg+5!#xu%e-oh#7!$aa7!6avf7ud*_v=chdrb9qdco6('
+# Make a dictionary of default keys
+default_keys = { 'SECRET_KEY': 'jm8fqjlg+5!#xu%e-oh#7!$aa7!6avf7ud*_v=chdrb9qdco6(' }
+
+# Replace default keys with dynamic values if we are in OpenShift
+use_keys = default_keys
+imp.find_module('openshiftlibs')
+import openshiftlibs
+use_keys = openshiftlibs.openshift_secure(default_keys)
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -531,4 +537,4 @@ ALLOWED_HOSTS = [os.environ['OPENSHIFT_APP_DNS']]
 ENABLE_WHITEBOARD = False
 
 # Override home directory to some writable location
-# os.environ['HOME'] = os.path.join(WEB_ROOT, 'configuration')
+os.environ['HOME'] = os.environ['OPENSHIFT_DATA_DIR']
