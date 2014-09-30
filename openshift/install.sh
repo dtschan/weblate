@@ -14,10 +14,11 @@ test -e $OPENSHIFT_DATA_DIR/.install && exit 0
 touch $OPENSHIFT_DATA_DIR/.install
 
 source $OPENSHIFT_HOMEDIR/python/virtenv/bin/activate
+export PYTHONUNBUFFERED=1
 
 sed -e 's/Django[<>=].*/Django==1.6/' $OPENSHIFT_REPO_DIR/requirements-mandatory.txt >/tmp/requirements.txt
 
-python -u $OPENSHIFT_HOMEDIR/python/virtenv/bin/pip install -r /tmp/requirements.txt &&
+pip install -r /tmp/requirements.txt &&
 
 if [ ! -s $OPENSHIFT_DATA_DIR/weblate.db ]; then
   rm -f ${OPENSHIFT_DATA_DIR}/CREDENTIALS
