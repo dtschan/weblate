@@ -33,7 +33,7 @@ if django.VERSION < (1, 4, 0):
 # Django settings for Weblate project.
 #
 
-import os
+import imp, os
 from logging.handlers import SysLogHandler
 
 DEBUG = False
