@@ -3,8 +3,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ['OPENSHIFT_REPO_DIR']))
-sys.path.append(os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'weblate'))
+sys.path.append(os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'weblate', 'openshift'))
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'weblate.settings_openshift'
 
