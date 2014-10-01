@@ -33,8 +33,9 @@ if django.VERSION < (1, 4, 0):
 # Django settings for Weblate project.
 #
 
-import imp, os
+import os
 from logging.handlers import SysLogHandler
+import openshift.openshiftlibs
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -165,8 +166,6 @@ default_keys = { 'SECRET_KEY': 'jm8fqjlg+5!#xu%e-oh#7!$aa7!6avf7ud*_v=chdrb9qdco
 
 # Replace default keys with dynamic values if we are in OpenShift
 use_keys = default_keys
-imp.find_module('openshiftlibs')
-import openshiftlibs
 use_keys = openshiftlibs.openshift_secure(default_keys)
 
 # Make this unique, and don't share it with anybody.
