@@ -16,7 +16,7 @@ touch $OPENSHIFT_DATA_DIR/.install
 source $OPENSHIFT_HOMEDIR/python/virtenv/bin/activate
 export PYTHONUNBUFFERED=1
 
-sed -e 's/Django[<>=].*/Django==1.6/' $OPENSHIFT_REPO_DIR/requirements-mandatory.txt >/tmp/requirements.txt
+sed -e 's/Django[<>=].*/Django==1.7/' $OPENSHIFT_REPO_DIR/requirements-mandatory.txt >/tmp/requirements.txt
 
 pip install -r /tmp/requirements.txt &&
 
