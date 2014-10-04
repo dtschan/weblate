@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import os
+from string import Template
 
 virtenv = os.environ['OPENSHIFT_PYTHON_DIR'] + '/virtenv/'
 virtualenv = os.path.join(virtenv, 'bin/activate_this.py')
@@ -15,7 +16,7 @@ except IOError:
 def application(environ, start_response):
 
   ctype = 'text/html'
-  response_body = '''<!doctype html>
+  response_body = Template('''<!doctype html>
 <html lang="en">
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -72,17 +73,25 @@ pre {
 </head>
 <body>
   <div class="content">
-    <h1>Installing Weblate</h1>
+    <h1>$action1 Weblate</h1>
 
-    <p>Weblate is beeing installed. Please wait a few minutes and refresh this page.</p>
+    <p>Weblate is beeing $action2. Please wait a few minutes and refresh this page.</p>
              
-    <pre>''' + \
-os.popen('cat ${OPENSHIFT_DATA_DIR}/install.log | grep \'^[^ ]\\|setup.py install\' | sed \'s,/var/lib/openshift/[a-z0-9]\{24\},~,\'').read() + \
-'''</pre>                
+    <pre>$log</pre>                
   </div>
 </body>
-</html>'''
+</html>''')
 
+  if os.path.exists(os.environ['OPENSHIFT_DATA_DIR'] + '/.installed'):
+    action1 = 'Upgrading'
+    action2 = 'upgraded'
+    log = ''
+  else
+    action1 = 'Installing'
+    action2 = 'installed'
+    log = os.popen('cat ${OPENSHIFT_DATA_DIR}/install.log | grep \'^[^ ]\\|setup.py install\' | sed \'s,/var/lib/openshift/[a-z0-9]\{24\},~,\'').read()      
+
+  response_body = responde_body.substitute(action1, action2, log)
   status = '200 OK'
   response_headers = [('Content-Type', ctype), ('Content-Length', str(len(response_body)))]
   
