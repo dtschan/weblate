@@ -24,9 +24,9 @@ if [ ! -s $OPENSHIFT_DATA_DIR/weblate.db ]; then
   rm -f ${OPENSHIFT_DATA_DIR}/CREDENTIALS
 fi
 
-if [ ! -s $OPENSHIFT_REPO_DIR/weblate/fixtures/initial_data.json ]; then
+if [ ! -s $OPENSHIFT_REPO_DIR/weblate/fixtures/site_data.json ]; then
   mkdir -p $OPENSHIFT_REPO_DIR/weblate/fixtures
-  cat <<-EOF >$OPENSHIFT_REPO_DIR/weblate/fixtures/initial_data.json
+  cat <<-EOF >$OPENSHIFT_REPO_DIR/weblate/fixtures/site_data.json
     [{
         "pk": 1,
         "model": "sites.site",
@@ -41,6 +41,8 @@ fi
 sh "python ${OPENSHIFT_REPO_DIR}/openshift/manage.py syncdb --noinput"
 
 sh "python ${OPENSHIFT_REPO_DIR}/openshift/manage.py migrate"
+
+sh "python ${OPENSHIFT_REPO_DIR}/openshift/manage.py loaddata site_data"
 
 sh "python ${OPENSHIFT_REPO_DIR}/openshift/manage.py collectstatic --noinput"
 
