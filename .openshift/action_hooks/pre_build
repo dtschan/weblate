@@ -3,13 +3,9 @@ if [ ! -e $OPENSHIFT_REPO_DIR/requirements-mandatory.txt ]; then
 	mv $OPENSHIFT_REPO_DIR/requirements.txt $OPENSHIFT_REPO_DIR/requirements-mandatory.txt
 fi
 
-# Show install page as long as the app is not completely installed
+# Show install/upgrade page, will be replaced with app by install.sh
 mkdir -p $OPENSHIFT_REPO_DIR/wsgi
-if [ -e "$OPENSHIFT_DATA_DIR/.installed" ]; then
-	ln -sf $OPENSHIFT_REPO_DIR/openshift/wsgi.py $OPENSHIFT_REPO_DIR/wsgi/application
-else
-	ln -sf $OPENSHIFT_REPO_DIR/openshift/wsgi_install.py $OPENSHIFT_REPO_DIR/wsgi/application
-fi
+ln -sf $OPENSHIFT_REPO_DIR/openshift/wsgi_install.py $OPENSHIFT_REPO_DIR/wsgi/application
 
 # Downgrade git requirement for older OpenShift Enterprise 2 versions
 sed -i -e "s/'1.7.2'/'1.7.1'/" ${OPENSHIFT_REPO_DIR}/weblate/requirements.py

@@ -86,12 +86,12 @@ pre {
     action1 = 'Upgrading'
     action2 = 'upgraded'
     log = ''
-  else
+  else:
     action1 = 'Installing'
     action2 = 'installed'
-    log = os.popen('cat ${OPENSHIFT_DATA_DIR}/install.log | grep \'^[^ ]\\|setup.py install\' | sed \'s,/var/lib/openshift/[a-z0-9]\{24\},~,\'').read()      
+    log = '<pre>' + os.popen('cat ${OPENSHIFT_DATA_DIR}/install.log | grep \'^[^ ]\\|setup.py install\' | sed \'s,/var/lib/openshift/[a-z0-9]\{24\},~,\'').read() + '</pre>'
 
-  response_body = responde_body.substitute(action1, action2, log)
+  response_body = response_body.substitute(locals())
   status = '200 OK'
   response_headers = [('Content-Type', ctype), ('Content-Length', str(len(response_body)))]
   
