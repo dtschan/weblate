@@ -32,6 +32,8 @@ DATABASES = {
     }
 }
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 TIME_ZONE = None
 
 STATIC_ROOT = os.path.join(BASE_DIR, '..', 'wsgi', 'static')
