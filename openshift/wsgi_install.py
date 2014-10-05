@@ -77,7 +77,7 @@ pre {
 
     <p>Weblate is beeing $action2. Please wait a few minutes and refresh this page.</p>
              
-    <pre>$log</pre>                
+    $log
   </div>
 </body>
 </html>''')
