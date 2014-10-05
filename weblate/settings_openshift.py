@@ -18,8 +18,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import settings_example
 import imp, os
+import openshiftlibs
+from settings_example import *
 
 DEBUG = False
 
@@ -42,8 +43,7 @@ default_keys = { 'SECRET_KEY': 'jm8fqjlg+5!#xu%e-oh#7!$aa7!6avf7ud*_v=chdrb9qdco
  
 # Replace default keys with dynamic values if we are in OpenShift
 use_keys = default_keys
-imp.find_module('openshiftlibs')
-import openshiftlibs
+#imp.find_module('openshiftlibs')
 use_keys = openshiftlibs.openshift_secure(default_keys)
  
 SECRET_KEY = use_keys['SECRET_KEY']
