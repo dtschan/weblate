@@ -19,7 +19,7 @@
 #
 
 import settings_example
-import os
+import imp, os
 
 DEBUG = False
 
