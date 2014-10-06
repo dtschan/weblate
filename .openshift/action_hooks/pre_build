@@ -1,4 +1,8 @@
-# Don't let OpenShift install the dependencies directly as this leads to timeouts during gear creation and deploys
+# Don't let OpenShift install weblate and its dependencies directly as this leads to timeouts during gear creation and deploys
+if [ ! -e $OPENSHIFT_REPO_DIR/setup_weblate.py ]; then
+  mv $OPENSHIFT_REPO_DIR/setup.py $OPENSHIFT_REPO_DIR/setup_weblate.py
+fi
+
 if [ ! -e $OPENSHIFT_REPO_DIR/requirements-mandatory.txt ]; then
 	mv $OPENSHIFT_REPO_DIR/requirements.txt $OPENSHIFT_REPO_DIR/requirements-mandatory.txt
 fi

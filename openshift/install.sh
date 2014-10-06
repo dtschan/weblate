@@ -16,6 +16,8 @@ touch $OPENSHIFT_DATA_DIR/.install
 source $OPENSHIFT_HOMEDIR/python/virtenv/bin/activate
 export PYTHONUNBUFFERED=1
 
+sh "python ${OPENSHIFT_REPO_DIR}/setup_weblate.py"
+
 sed -e 's/Django[<>=].*/Django==1.7/' $OPENSHIFT_REPO_DIR/requirements-mandatory.txt >/tmp/requirements.txt
 
 pip install -r /tmp/requirements.txt &&
