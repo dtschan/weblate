@@ -44,7 +44,7 @@ sh "python ${OPENSHIFT_REPO_DIR}/openshift/manage.py syncdb --noinput"
 
 sh "python ${OPENSHIFT_REPO_DIR}/openshift/manage.py migrate"
 
-sh "python ${OPENSHIFT_REPO_DIR}/openshift/manage.py loaddata site_data"
+sh "python ${OPENSHIFT_REPO_DIR}/openshift/manage.py loaddata $OPENSHIFT_REPO_DIR/weblate/fixtures/site_data"
 
 sh "python ${OPENSHIFT_REPO_DIR}/openshift/manage.py collectstatic --noinput"
 
