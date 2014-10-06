@@ -89,7 +89,7 @@ pre {
   else:
     action1 = 'Installing'
     action2 = 'installed'
-    log = '<pre>' + os.popen('cat ${OPENSHIFT_LOG_DIR}/install.log | grep \'^[^ ]\\|setup.py install\' | sed \'s,/var/lib/openshift/[a-z0-9]\{24\},~,\'').read() + '</pre>'
+    log = '<pre>' + os.popen('cat ${OPENSHIFT_PYTHON_LOG_DIR}/install.log | grep \'^[^ ]\\|setup.py install\' | sed \'s,/var/lib/openshift/[a-z0-9]\{24\},~,\'').read() + '</pre>'
 
   response_body = response_body.substitute(locals())
   status = '200 OK'
