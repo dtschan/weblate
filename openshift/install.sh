@@ -20,7 +20,7 @@ sh "python ${OPENSHIFT_REPO_DIR}/setup_weblate.py develop"
 
 sed -e 's/Django[<>=].*/Django==1.7/' $OPENSHIFT_REPO_DIR/requirements-mandatory.txt >/tmp/requirements.txt
 
-pip install -r /tmp/requirements.txt &&
+sh "pip install -r /tmp/requirements.txt"
 
 if [ ! -s $OPENSHIFT_DATA_DIR/weblate.db ]; then
   rm -f ${OPENSHIFT_DATA_DIR}/CREDENTIALS
