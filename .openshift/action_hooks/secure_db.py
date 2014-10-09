@@ -1,4 +1,23 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# Copyright © 2014 Daniel Tschan <tschan@puzzle.ch>
+#
+# This file is part of Weblate <http://weblate.org/>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
 
 # Copyright 2011-2014 Red Hat Inc. and/or its affiliates and other contributors.
 #
@@ -15,17 +34,16 @@
 import hashlib, imp, os, sqlite3
 
 # Load the OpenShift helper library
-lib_path      = os.environ['OPENSHIFT_REPO_DIR'] + 'wsgi/openshift/'
+lib_path      = os.environ['OPENSHIFT_REPO_DIR'] + 'openshift/'
 modinfo       = imp.find_module('openshiftlibs', [lib_path])
 openshiftlibs = imp.load_module('openshiftlibs', modinfo[0], modinfo[1], modinfo[2])
 
 # Open the database
-conn = sqlite3.connect(os.environ['OPENSHIFT_DATA_DIR'] + '/sqlite3.db')
+conn = sqlite3.connect(os.environ['OPENSHIFT_DATA_DIR'] + '/weblate.db')
 c    = conn.cursor()
 
 # Grab the default security info
-c.execute('SELECT password FROM AUTH_USER WHERE id = 1')
-pw_info = c.fetchone()[0]
+pw_info = 'sha1$9ddf7$465f37505d88fcf05961eab98d7e0a2eabbc9d70'
 
 # The password is stored as [hashtype]$[salt]$[hashed]
 pw_fields = pw_info.split("$")
@@ -46,7 +64,7 @@ new_hashed  = hashlib.sha1(new_salt + new_pass).hexdigest()
 new_pw_info = "$".join([hashtype,new_salt,new_hashed])
 
 # Update the database
-c.execute('UPDATE AUTH_USER SET password = ? WHERE id = 1', [new_pw_info])
+c.execute('UPDATE AUTH_USER SET password = ? WHERE username = ?', [new_pw_info, 'admin'])
 conn.commit()
 c.close()
 conn.close()
