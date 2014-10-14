@@ -1,0 +1,127 @@
+Weblate on OpenShift
+====================
+
+This repository contains a configuration for the OpenShift platform as a service product which facilitates easy installation
+of Weblate on OpenShift Online (https://openshift.com), OpenShift Enterprise (https://www.openshift.com/products/enterprise)
+and OpenShift Origin (https://www.openshift.com/products/origin).
+
+Free hosting on openshift online
+
+rhc add-cartridge cron-1.4
+
+Updating:
+
+Documentation
+-------------
+
+Detailed documentation for Weblate is available in ``docs`` directory in the sources.
+
+The documentation can be also viewed online on
+http://docs.weblate.org/.
+
+TODO: OpenShift Documentation
+
+Prerequisites
+-------------
+
+1. OpenShift account
+2. OpenShift client tools
+
+Installation
+------------
+
+The following section describes how to install Weblate on OpenShift Online.
+Installation on OpenShift Enterprise and OpenShift Origin is carried out analogous.
+
+rhc -a*APP* create -t python-2.7 --from-code https://github.com/nijel/weblate.git#*TAG*
+
+Where *APP* is a name of your choosing, e.g. weblate, and *TAG* is used to identify the version of Weblate to install, e.g. weblate-2.0
+A list of available versions is available here: https://github.com/nijel/weblate/tags. Please note that only version 2.0 and newer can
+be installed on OpenShift, as older versions don't include the necessary configuration files.
+
+1. If you don't have an openshift.com account sign up for free on https://www.openshift.com/ (you can host up to 3 apps free of charge)
+2. Log in to https://www.openshift.com/
+3. Choose "Add Application..."
+4. Choose "Python 2.7"
+5. Enter the URL of any publicly hosted Weblate Git repository in the field "Source Code", e.g.: https://github.com/nijel/weblate.git
+6. TODO: branch/tag
+7. Click "Create Application"
+
+
+
+https://openshift.redhat.com/app/console/application_type/cart!python-2.7
+
+Installation and setup instructions are provided in our manual, check
+quick setup guide:
+
+http://docs.weblate.org/en/latest/admin/quick.html
+
+Configuration
+-------------
+
+After installation on OpenShift Weblate is ready to use and preconfigured as follows:
+
+* SQLite embedded database (DATABASES)
+* Random admin password
+* Random Django secret key (SECRET_KEY)
+* Indexing offloading if the cron cartridge is installed (OFFLOAD_INDEXING)
+* Weblate machine translations for suggestions bases on previous translations (MACHINE_TRANSLATION_SERVICES)
+* Source language for machine translations set to "en-us" (SOURCE_LANGUAGE)
+* Weblate directories (STATIC_ROOT, GIT_ROOT, HOME) set according to OpenShift requirements/conventions
+* Django site name and ALLOWED_HOSTS set to DNS name of your OpenShift application
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, '..', 'wsgi', 'static')
+
+default_keys = { 'SECRET_KEY': 'jm8fqjlg+5!#xu%e-oh#7!$aa7!6avf7ud*_v=chdrb9qdco6(' }
+ 
+# Replace default keys with dynamic values if we are in OpenShift
+use_keys = default_keys
+use_keys = openshiftlibs.openshift_secure(default_keys)
+ 
+SECRET_KEY = use_keys['SECRET_KEY']
+
+GIT_ROOT = os.path.join(os.environ['OPENSHIFT_DATA_DIR'], 'repos')
+
+# Offload indexing: if the cron cartridge is installed the preconfigured job in .openshift/cron/minutely/update_index updates the index.
+if os.environ.get('OPENSHIFT_CRON_DIR', False):
+  OFFLOAD_INDEXING = True
+else:
+  OFFLOAD_INDEXING = False
+
+SOURCE_LANGUAGE = 'en-us'
+
+# List of machine translations
+MACHINE_TRANSLATION_SERVICES = (
+#     'weblate.trans.machine.apertium.ApertiumTranslation',
+#     'weblate.trans.machine.glosbe.GlosbeTranslation',
+#     'weblate.trans.machine.google.GoogleTranslation',
+#     'weblate.trans.machine.google.GoogleWebTranslation',
+#     'weblate.trans.machine.microsoft.MicrosoftTranslation',
+#     'weblate.trans.machine.mymemory.MyMemoryTranslation',
+#     'weblate.trans.machine.opentran.OpenTranTranslation',
+#     'weblate.trans.machine.tmserver.AmagamaTranslation',
+#     'weblate.trans.machine.tmserver.TMServerTranslation',
+     'weblate.trans.machine.weblatetm.WeblateSimilarTranslation',
+     'weblate.trans.machine.weblatetm.WeblateTranslation',
+)
+
+if os.environ.get('OPENSHIFT_CLOUD_DOMAIN', False):
+  SERVER_EMAIL = 'no-reply@%s' % os.environ['OPENSHIFT_CLOUD_DOMAIN']
+  DEFAULT_FROM_EMAIL = 'no-reply@%s' % os.environ['OPENSHIFT_CLOUD_DOMAIN']
+
+ALLOWED_HOSTS = [os.environ['OPENSHIFT_APP_DNS']]
+
+os.environ['HOME'] = os.environ['OPENSHIFT_DATA_DIR']
+
+try:
+  from settings_local import *
+except ImportError:
+  pass
+
+
+
+Bugs
+----
+
+Please report bugs to https://github.com/nijel/weblate/issues.
