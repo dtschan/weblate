@@ -54,6 +54,9 @@ if os.environ.get('OPENSHIFT_CRON_DIR', False):
 else:
   OFFLOAD_INDEXING = False
 
+# Where to put Whoosh index
+WHOOSH_INDEX = os.path.join(os.environ['OPENSHIFT_DATA_DIR'], 'whoosh-index')
+
 SOURCE_LANGUAGE = 'en-us'
 
 # List of machine translations
@@ -85,6 +88,7 @@ except ImportError:
   pass
 
 try:
-  imp.load_source('settings_local', os.path.join(os.environ['OPENSHIFT_DATA_DIR'], 'settings_local.py'))
+  imp.load_source('settings_local2', os.path.join(os.environ['OPENSHIFT_DATA_DIR'], 'settings_local.py'))
+  from settings_local2 import *
 except IOError:
   pass
