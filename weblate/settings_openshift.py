@@ -85,6 +85,6 @@ except ImportError:
   pass
 
 try:
-  imp.load_source('settings_local', '%s/settings_local.py' % os.environ['OPENSHIFT_DATA_DIR'])
-except ImportError:
+  imp.load_source('settings_local', os.path.join(os.environ['OPENSHIFT_DATA_DIR'], 'settings_local.py'))
+except IOError:
   pass
