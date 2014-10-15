@@ -78,3 +78,13 @@ if os.environ.get('OPENSHIFT_CLOUD_DOMAIN', False):
 ALLOWED_HOSTS = [os.environ['OPENSHIFT_APP_DNS']]
 
 os.environ['HOME'] = os.environ['OPENSHIFT_DATA_DIR']
+
+try:
+  from settings_local import *
+except ImportError:
+  pass
+
+try:
+  imp.load_source('settings_local', os.path.join(os.environ['OPENSHIFT_DATA_DIR'], 'settings_local.py'))
+except ImportError:
+  pass
