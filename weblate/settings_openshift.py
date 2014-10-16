@@ -82,13 +82,19 @@ ALLOWED_HOSTS = [os.environ['OPENSHIFT_APP_DNS']]
 
 os.environ['HOME'] = os.environ['OPENSHIFT_DATA_DIR']
 
-try:
-  from settings_local import *
-except ImportError:
-  pass
+# Import environment variables prefixed with WEBLATE_ as weblate settings
+weblateVar = re.compile('^WEBLATE_[A-Za-z0-9_]+$')
+for name, value in os.environ.items():
+  if weblateVar.match(name):
+    exec("%s=os.environ[name]" % name[8:])
 
-try:
-  imp.load_source('settings_local2', os.path.join(os.environ['OPENSHIFT_DATA_DIR'], 'settings_local.py'))
-  from settings_local2 import *
-except IOError:
-  pass
+#try:
+#  from settings_local import *
+#except ImportError:
+#  pass
+
+#try:
+#  imp.load_source('settings_local2', os.path.join(os.environ['OPENSHIFT_DATA_DIR'], 'settings_local.py'))
+#  from settings_local2 import *
+#except IOError:
+#  pass

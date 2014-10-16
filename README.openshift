@@ -67,7 +67,7 @@ After installation on OpenShift Weblate is ready to use and preconfigured as fol
 * Indexing offloading if the cron cartridge is installed (OFFLOAD_INDEXING)
 * Weblate machine translations for suggestions bases on previous translations (MACHINE_TRANSLATION_SERVICES)
 * Source language for machine translations set to "en-us" (SOURCE_LANGUAGE)
-* Weblate directories (STATIC_ROOT, GIT_ROOT, HOME) set according to OpenShift requirements/conventions
+* Weblate directories (STATIC_ROOT, GIT_ROOT, WHOOSH_INDEX, HOME) set according to OpenShift requirements/conventions
 * Django site name and ALLOWED_HOSTS set to DNS name of your OpenShift application
 
 
