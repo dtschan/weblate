@@ -99,8 +99,8 @@ pre {
 </html>''')
 
   if os.path.exists(os.environ['OPENSHIFT_DATA_DIR'] + '/.installed'):
-    action1 = 'Upgrading'
-    action2 = 'upgraded'
+    action1 = 'Updating'
+    action2 = 'updated'
     log = ''
   else:
     action1 = 'Installing'

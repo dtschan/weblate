@@ -69,7 +69,7 @@ sh "python ${OPENSHIFT_REPO_DIR}/openshift/manage.py collectstatic --noinput"
 if [ ! -s $OPENSHIFT_DATA_DIR/CREDENTIALS ]; then
   echo "Generating Weblate admin credentials and writing them to ${OPENSHIFT_DATA_DIR}/CREDENTIALS"
   sh "python ${OPENSHIFT_REPO_DIR}/openshift/manage.py createadmin"
-  sh "python ${OPENSHIFT_REPO_DIR}/.openshift/action_hooks/secure_db.py | tee ${OPENSHIFT_DATA_DIR}/CREDENTIALS"
+  sh "python ${OPENSHIFT_REPO_DIR}/openshift/secure_db.py | tee ${OPENSHIFT_DATA_DIR}/CREDENTIALS"
 fi
 
 ln -sf $OPENSHIFT_REPO_DIR/openshift/wsgi.py $OPENSHIFT_REPO_DIR/wsgi/application
