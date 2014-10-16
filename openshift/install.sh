@@ -31,6 +31,8 @@ test -e $OPENSHIFT_DATA_DIR/.install && exit 0
 
 touch $OPENSHIFT_DATA_DIR/.install
 
+env
+
 export PYTHONUNBUFFERED=1
 source $OPENSHIFT_HOMEDIR/python/virtenv/bin/activate
 
