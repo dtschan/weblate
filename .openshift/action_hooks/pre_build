@@ -30,6 +30,3 @@ fi
 # Show install/upgrade page, will be replaced with app by install.sh
 mkdir -p $OPENSHIFT_REPO_DIR/wsgi
 ln -sf $OPENSHIFT_REPO_DIR/openshift/wsgi_install.py $OPENSHIFT_REPO_DIR/wsgi/application
-
-# Downgrade git requirement for older OpenShift Enterprise 2 versions
-sed -i -e "s/'1.7.2'/'1.7.1'/" ${OPENSHIFT_REPO_DIR}/weblate/requirements.py
