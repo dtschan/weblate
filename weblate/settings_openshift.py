@@ -46,6 +46,21 @@ use_keys = openshiftlibs.openshift_secure(default_keys)
  
 SECRET_KEY = use_keys['SECRET_KEY']
 
+CACHES = {
+#    'default': {
+#        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+#        'LOCATION': '127.0.0.1:11211',
+#    },
+    'avatar': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(os.environ['OPENSHIFT_DATA_DIR'], 'avatar-cache'),
+        'TIMEOUT': 604800,
+        'OPTIONS': {
+            'MAX_ENTRIES': 1000,
+        },
+    }
+}
+
 GIT_ROOT = os.path.join(os.environ['OPENSHIFT_DATA_DIR'], 'repos')
 
 # Offload indexing: if the cron cartridge is installed the preconfigured job in .openshift/cron/minutely/update_index updates the index.
