@@ -73,7 +73,7 @@ if [ ! -s $OPENSHIFT_DATA_DIR/.credentials ]; then
 fi
 
 mkdir -p $OPENSHIFT_DATA_DIR/bin
-ln -sf ${OPENSHIFT_REPO_DIR}/openshift/update.sh $OPENSHIFT_DATA_DIR/bin
+ln -sf ${OPENSHIFT_REPO_DIR}/openshift/update.sh $OPENSHIFT_DATA_DIR/bin/update
 
 LINE='export PATH=$OPENSHIFT_DATA_DIR/bin:$PATH'
 grep -q "$LINE" $OPENSHIFT_DATA_DIR/.bash_profile || echo "$LINE" >> $OPENSHIFT_DATA_DIR/.bash_profile 

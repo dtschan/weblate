@@ -18,4 +18,4 @@ if ! git cat-file -e "$BRANCH":.openshift 2>/dev/null; then
   exit 1
 fi
 
-gear deploy "$BRANCH"
+gear deploy --hot-deploy "$BRANCH"
