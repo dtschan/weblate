@@ -41,7 +41,7 @@ sed -e 's/Django[<>=]+.*/Django==1.7/' $OPENSHIFT_REPO_DIR/requirements-mandator
 sh "pip install -r /tmp/requirements.txt"
 
 if [ ! -s $OPENSHIFT_DATA_DIR/weblate.db ]; then
-  rm -f ${OPENSHIFT_DATA_DIR}/CREDENTIALS
+  rm -f ${OPENSHIFT_DATA_DIR}/.credentials
 fi
 
 if [ ! -s $OPENSHIFT_REPO_DIR/weblate/fixtures/site_data.json ]; then
@@ -66,11 +66,17 @@ sh "python ${OPENSHIFT_REPO_DIR}/openshift/manage.py loaddata $OPENSHIFT_REPO_DI
 
 sh "python ${OPENSHIFT_REPO_DIR}/openshift/manage.py collectstatic --noinput"
 
-if [ ! -s $OPENSHIFT_DATA_DIR/CREDENTIALS ]; then
-  echo "Generating Weblate admin credentials and writing them to ${OPENSHIFT_DATA_DIR}/CREDENTIALS"
+if [ ! -s $OPENSHIFT_DATA_DIR/.credentials ]; then
+  echo "Generating Weblate admin credentials and writing them to ${OPENSHIFT_DATA_DIR}/.credentials"
   sh "python ${OPENSHIFT_REPO_DIR}/openshift/manage.py createadmin"
-  sh "python ${OPENSHIFT_REPO_DIR}/openshift/secure_db.py | tee ${OPENSHIFT_DATA_DIR}/CREDENTIALS"
+  sh "python ${OPENSHIFT_REPO_DIR}/openshift/secure_db.py | tee ${OPENSHIFT_DATA_DIR}/.credentials"
 fi
+
+mkdir -p $OPENSHIFT_DATA_DIR/bin
+ln -sf ${OPENSHIFT_REPO_DIR}/openshift/update.sh $OPENSHIFT_DATA_DIR/bin
+
+LINE='export PATH=$OPENSHIFT_DATA_DIR/bin:$PATH'
+grep -q "$LINE" $OPENSHIFT_DATA_DIR/.bash_profile || echo "$LINE" >> $OPENSHIFT_DATA_DIR/.bash_profile 
 
 ln -sf $OPENSHIFT_REPO_DIR/openshift/wsgi.py $OPENSHIFT_REPO_DIR/wsgi/application
 touch $OPENSHIFT_DATA_DIR/.installed
