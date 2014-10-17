@@ -10,7 +10,7 @@ URL="$1"
 BRANCH="${2:-master}"
 
 OLD_HEAD=`git rev-parse "$BRANCH"`
-cd $OPENSHIFT_HOMEDIR/git/$OPENSHIFT_APP_NAME.git
+cd ${OPENSHIFT_HOMEDIR}/git/${OPENSHIFT_APP_NAME}.git
 git fetch "$URL" "$BRANCH"
 
 if ! git cat-file -e "$BRANCH":.openshift 2>/dev/null; then
