@@ -11,7 +11,7 @@ BRANCH="${2:-master}"
 
 cd ${OPENSHIFT_HOMEDIR}/git/${OPENSHIFT_APP_NAME}.git
 OLD_HEAD=`git rev-parse "$BRANCH"`
-git fetch "$URL" "$BRANCH"
+git fetch --force "$URL" "$BRANCH":"$BRANCH"
 HEAD=`git rev-parse "$BRANCH"`
 
 if [ "$HEAD" == "$OLD_HEAD" ]; then
