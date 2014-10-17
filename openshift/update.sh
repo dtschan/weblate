@@ -9,7 +9,7 @@ IFS=$OLDIFS
 URL="$1"
 BRANCH="${2:-master}"
 
-CURRENT_COMMIT=`git rev-parse HEAD`
+OLD_HEAD=`git rev-parse "$BRANCH"`
 cd $OPENSHIFT_HOMEDIR/git/$OPENSHIFT_APP_NAME.git
 git fetch "$URL" "$BRANCH"
 
