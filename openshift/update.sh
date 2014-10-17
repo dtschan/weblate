@@ -15,7 +15,7 @@ git fetch "$URL" "$BRANCH"
 HEAD=`git rev-parse "$BRANCH"`
 
 if [ "$HEAD" == "$OLD_HEAD" ]; then
-	echo "Already up to date."
+	echo "Already up-to-date."
   exit 0
 fi
 
