@@ -47,10 +47,9 @@ use_keys = openshiftlibs.openshift_secure(default_keys)
 SECRET_KEY = use_keys['SECRET_KEY']
 
 CACHES = {
-#    'default': {
-#        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-#        'LOCATION': '127.0.0.1:11211',
-#    },
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    },
     'avatar': {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
         'LOCATION': os.path.join(os.environ['OPENSHIFT_DATA_DIR'], 'avatar-cache'),
