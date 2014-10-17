@@ -72,11 +72,7 @@ if [ ! -s $OPENSHIFT_DATA_DIR/.credentials ]; then
   sh "python ${OPENSHIFT_REPO_DIR}/openshift/secure_db.py | tee ${OPENSHIFT_DATA_DIR}/.credentials"
 fi
 
-mkdir -p $OPENSHIFT_DATA_DIR/bin
-ln -sf ${OPENSHIFT_REPO_DIR}/openshift/update.sh $OPENSHIFT_DATA_DIR/bin/update
-
-LINE='export PATH=$OPENSHIFT_DATA_DIR/bin:$PATH'
-grep -q "$LINE" $OPENSHIFT_DATA_DIR/.bash_profile || echo "$LINE" >> $OPENSHIFT_DATA_DIR/.bash_profile 
+ln -sf ${OPENSHIFT_REPO_DIR}/openshift/update.sh $VIRTUAL_ENV/bin/update
 
 ln -sf $OPENSHIFT_REPO_DIR/openshift/wsgi.py $OPENSHIFT_REPO_DIR/wsgi/application
 touch $OPENSHIFT_DATA_DIR/.installed
