@@ -1,5 +1,4 @@
-Weblate on OpenShift
-====================
+# Weblate on OpenShift
 
 This repository contains a configuration for the OpenShift platform as a service product which facilitates easy installation
 of Weblate on OpenShift Online (https://openshift.com), OpenShift Enterprise (https://www.openshift.com/products/enterprise)
@@ -11,8 +10,8 @@ rhc add-cartridge cron-1.4
 
 Updating:
 
-Documentation
--------------
+
+## Documentation
 
 Detailed documentation for Weblate is available in ``docs`` directory in the sources.
 
@@ -21,14 +20,23 @@ http://docs.weblate.org/.
 
 TODO: OpenShift Documentation
 
-Prerequisites
--------------
 
-1. OpenShift account
-2. OpenShift client tools
+## Prerequisites
 
-Installation
-------------
+### OpenShift Account
+You need an account for OpenShift Online (https://openshift.com) or another OpenShift installation you have access to.
+
+You can register a free account on OpenShift Online which allows you to host up to 3 applications free of charge.
+
+### OpenShift Client Tools
+To follow the examples given in this README you need to have the OpenShift Client Tools (RHC) installed:
+https://developers.openshift.com/en/getting-started-client-tools.html.
+
+While there are other possibilities to create and configure OpenShift applications this documentation is based
+on the OpenShift Client Tools (RHC) because they provide a consistent interface for all described operations.
+
+
+## Installation
 
 The following section describes how to install Weblate on OpenShift Online.
 Installation on OpenShift Enterprise and OpenShift Origin is carried out analogous.
@@ -46,8 +54,7 @@ quick setup guide:
 
 http://docs.weblate.org/en/latest/admin/quick.html
 
-Configuration
--------------
+## Configuration
 
 After installation on OpenShift Weblate is ready to use and preconfigured as follows:
 
@@ -61,6 +68,13 @@ After installation on OpenShift Weblate is ready to use and preconfigured as fol
 * Django site name and ALLOWED_HOSTS set to DNS name of your OpenShift application
 * Email sender addresses set to no-reply@*OPENSHIFT_CLOUD_DOMAIN*, where *OPENSHIFT_CLOUD_DOMAIN* is the domain OpenShift runs under. In case of OpenShift Online it's rhcloud.com.
 
+### Retrieve Admin Password
+
+You can retrieve the generated admin password with the following command:
+
+rhc -a*APP* ssh credentials
+
+### Indexing Offloading
 
 
 

@@ -73,6 +73,7 @@ if [ ! -s $OPENSHIFT_DATA_DIR/.credentials ]; then
 fi
 
 ln -sf ${OPENSHIFT_REPO_DIR}/openshift/update.sh $VIRTUAL_ENV/bin/update
+ln -sf ${OPENSHIFT_REPO_DIR}/openshift/credentials.sh $VIRTUAL_ENV/bin/credentials
 
 ln -sf $OPENSHIFT_REPO_DIR/openshift/wsgi.py $OPENSHIFT_REPO_DIR/wsgi/application
 touch $OPENSHIFT_DATA_DIR/.installed
