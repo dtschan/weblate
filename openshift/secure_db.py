@@ -71,4 +71,4 @@ c.close()
 conn.close()
 
 # Print the new password info
-print "Weblate admin credentials:\n\tuser: admin\n\t" + new_pass
+print "Weblate admin credentials:\n\tuser: admin\n\tpassword: " + new_pass
