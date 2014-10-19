@@ -21,7 +21,7 @@
 # Log and execute given command, identing its output for easy filtering.
 function sh {
   echo "Executing '$1'"
-  /bin/sh -c "$1" 2>&1 | sed -e 's/^/  /'
+  /bin/sh -c "$1" 2>&1 | sed -u -e 's/^/  /'
 }
 
 set -e
@@ -75,8 +75,9 @@ fi
 ln -sf ${OPENSHIFT_REPO_DIR}/openshift/update.sh $VIRTUAL_ENV/bin/update
 ln -sf ${OPENSHIFT_REPO_DIR}/openshift/credentials.sh $VIRTUAL_ENV/bin/credentials
 
+gear stop
+
 ln -sf $OPENSHIFT_REPO_DIR/openshift/wsgi.py $OPENSHIFT_REPO_DIR/wsgi/application
 touch $OPENSHIFT_DATA_DIR/.installed
 
-gear stop
 gear start
