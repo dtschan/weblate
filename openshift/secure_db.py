@@ -19,15 +19,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import os, sqlite3
 from openshiftlibs import make_secure_key, get_openshift_secret_token
 from hashlib import sha256
-#from passlib.hash import pbkdf2_sha256
 from django.contrib.auth.hashers import make_password
+from django.conf import settings
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "weblate.settings_openshift")
+# Use default Django settings
+settings.configure()
 
 new_pass = make_secure_key({ 'hash': sha256(get_openshift_secret_token()).hexdigest(), 'original': '0' * 12, 'variable': '' })
-#new_hash = pbkdf2_sha256.encrypt(new_pass, rounds=12000, salt_size=8)
 new_hash = make_password(new_pass)
 
 # Update admin password in database
