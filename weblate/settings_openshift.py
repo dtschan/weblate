@@ -102,13 +102,5 @@ for name, value in os.environ.items():
   if weblateVar.match(name):
     exec("%s=os.environ[name]" % name[8:])
 
-#try:
-#  from settings_local import *
-#except ImportError:
-#  pass
-
-#try:
-#  imp.load_source('settings_local2', os.path.join(os.environ['OPENSHIFT_DATA_DIR'], 'settings_local.py'))
-#  from settings_local2 import *
-#except IOError:
-#  pass
+for name, value in locals():
+  print "%s=%s" % (name, value)
