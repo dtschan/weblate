@@ -102,5 +102,5 @@ for name, value in os.environ.items():
   if weblateVar.match(name):
     exec("%s=os.environ[name]" % name[8:])
 
-for name, value in locals():
+for name, value in locals().items():
   print "%s=%s" % (name, value)
