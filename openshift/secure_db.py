@@ -19,14 +19,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import os, sqlite3
-from openshiftlibs import make_secure_key, get_openshift_secret_token
-from hashlib import sha256
-from django.contrib.auth.hashers import make_password
 from django.conf import settings
 
 # Use default Django settings
 settings.configure()
+
+import os, sqlite3
+from openshiftlibs import make_secure_key, get_openshift_secret_token
+from hashlib import sha256
+from django.contrib.auth.hashers import make_password
 
 new_pass = make_secure_key({ 'hash': sha256(get_openshift_secret_token()).hexdigest(), 'original': '0' * 12, 'variable': '' })
 new_hash = make_password(new_pass)
