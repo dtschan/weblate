@@ -43,7 +43,8 @@ conn = sqlite3.connect(os.environ['OPENSHIFT_DATA_DIR'] + '/weblate.db')
 c    = conn.cursor()
 
 # Grab the default security info
-pw_info = 'sha1$9ddf7$465f37505d88fcf05961eab98d7e0a2eabbc9d70'
+c.execute('SELECT password FROM AUTH_USER WHERE username = ?', ['admin'])
+pw_info = c.fetchone()[0]
 
 # The password is stored as [hashtype]$[salt]$[hashed]
 pw_fields = pw_info.split("$")
@@ -70,4 +71,4 @@ c.close()
 conn.close()
 
 # Print the new password info
-print "Django application credentials:\n\tuser: admin\n\t" + new_pass
+print "Weblate admin credentials:\n\tuser: admin\n\t" + new_pass
