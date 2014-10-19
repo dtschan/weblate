@@ -19,55 +19,23 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# Copyright 2011-2014 Red Hat Inc. and/or its affiliates and other contributors.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-# http://www.apache.org/licenses/LICENSE-2.0
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,  
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+from openshiftlibs import make_secure_key, get_openshift_secret_token
+from hashlib import sha256
+#from passlib.hash import pbkdf2_sha256
+from django.contrib.auth.hashers import make_password
 
-import hashlib, imp, os, sqlite3
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "weblate.settings_openshift")
 
-# Load the OpenShift helper library
-lib_path      = os.environ['OPENSHIFT_REPO_DIR'] + 'openshift/'
-modinfo       = imp.find_module('openshiftlibs', [lib_path])
-openshiftlibs = imp.load_module('openshiftlibs', modinfo[0], modinfo[1], modinfo[2])
+new_pass = make_secure_key({ 'hash': sha256(get_openshift_secret_token()).hexdigest(), 'original': '0' * 12, 'variable': '' })
+#new_hash = pbkdf2_sha256.encrypt(new_pass, rounds=12000, salt_size=8)
+new_hash = make_password(new_pass)
 
-# Open the database
+# Update admin password in database
 conn = sqlite3.connect(os.environ['OPENSHIFT_DATA_DIR'] + '/weblate.db')
-c    = conn.cursor()
-
-# Grab the default security info
-c.execute('SELECT password FROM AUTH_USER WHERE username = ?', ['admin'])
-pw_info = c.fetchone()[0]
-
-# The password is stored as [hashtype]$[salt]$[hashed]
-pw_fields = pw_info.split("$")
-hashtype  = pw_fields[0]
-old_salt  = pw_fields[1]
-old_pass  = pw_fields[2]
-
-# Randomly generate a new password and a new salt
-# The PASSWORD value below just sets the length (12)
-# for the real new password.
-old_keys = { 'SALT': old_salt, 'PASS': '123456789ABC' }
-use_keys = openshiftlibs.openshift_secure(old_keys)
-
-# Encrypt the new password
-new_salt    = use_keys['SALT']
-new_pass    = use_keys['PASS']
-new_hashed  = hashlib.sha1(new_salt + new_pass).hexdigest()
-new_pw_info = "$".join([hashtype,new_salt,new_hashed])
-
-# Update the database
-c.execute('UPDATE AUTH_USER SET password = ? WHERE username = ?', [new_pw_info, 'admin'])
+cursor = conn.cursor()
+cursor.execute('UPDATE AUTH_USER SET password = ? WHERE username = ?', [new_hash, 'admin'])
 conn.commit()
-c.close()
+cursor.close()
 conn.close()
 
 # Print the new password info
