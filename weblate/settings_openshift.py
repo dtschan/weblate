@@ -100,7 +100,4 @@ os.environ['HOME'] = os.environ['OPENSHIFT_DATA_DIR']
 weblateVar = re.compile('^WEBLATE_[A-Za-z0-9_]+$')
 for name, value in os.environ.items():
   if weblateVar.match(name):
-    exec("%s=os.environ[name]" % name[8:])
-
-for name, value in locals().items():
-  print "%s=%s" % (name, value)
+    exec("%s=os.environ[%s]" % name[8:], name)
