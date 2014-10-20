@@ -74,6 +74,8 @@ You can retrieve the generated admin password with the following command:
 
 rhc -a*APP* ssh credentials
 
+http://docs.weblate.org/en/weblate-latest/admin/projects.html
+
 ### Indexing Offloading
 
 
