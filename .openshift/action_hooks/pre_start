@@ -22,13 +22,13 @@
 
 exec 1>${OPENSHIFT_REPO_DIR}/weblate/settings_env.py
 
-echo "import os"
+echo "import os, ast"
 echo ""
 
 /usr/bin/env | while IFS='=' read name value; do
 	case "${name}" in 
     WEBLATE_*)
-    	echo "${name:8}=os.environ['${name}']"
+    	echo "${name:8}=ast.literal_eval(os.environ['${name}'])"
       ;;
   esac
 done
