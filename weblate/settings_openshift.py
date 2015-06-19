@@ -138,7 +138,7 @@ for name, value in os.environ.items():
         except ValueError as e:
             if not e.args:
                 e.args = ('',)
-                e.args = (
-                    "Error parsing %s = '%s': %s" % (name, value, e.args[0]),
-                ) + e.args[1:]
+            e.args = (
+                "Error parsing %s = '%s': %s" % (name, value, e.args[0]),
+            ) + e.args[1:]
             raise
