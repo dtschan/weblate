@@ -28,8 +28,8 @@ sys.path.append(os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'openshift'))
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'weblate.settings_openshift'
 
-execfile(os.path.join(
-    os.environ['OPENSHIFT_REPO_DIR'], 'openshift', 'virtualenv.py'
-))
+#execfile(os.path.join(
+#    os.environ['OPENSHIFT_REPO_DIR'], 'openshift', 'virtualenv.py'
+#))
 
 application = get_wsgi_application()

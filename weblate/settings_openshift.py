@@ -119,7 +119,7 @@ if os.environ.get('OPENSHIFT_CLOUD_DOMAIN', False):
     SERVER_EMAIL = 'no-reply@%s' % os.environ['OPENSHIFT_CLOUD_DOMAIN']
     DEFAULT_FROM_EMAIL = 'no-reply@%s' % os.environ['OPENSHIFT_CLOUD_DOMAIN']
 
-ALLOWED_HOSTS = [os.environ['OPENSHIFT_APP_DNS']]
+ALLOWED_HOSTS = ['*']
 
 TTF_PATH = os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'weblate', 'ttf')
 

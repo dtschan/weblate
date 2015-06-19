@@ -47,14 +47,14 @@ test -e $OPENSHIFT_DATA_DIR/.install && exit 0
 touch $OPENSHIFT_DATA_DIR/.install
 
 export PYTHONUNBUFFERED=1
-source $OPENSHIFT_HOMEDIR/python/virtenv/bin/activate
+#source $OPENSHIFT_HOMEDIR/python/virtenv/bin/activate
 
 cd ${OPENSHIFT_REPO_DIR}
 
 # Pin Django version to 1.8 to avoid surprises when 1.9 comes out.
 sed -e 's/Django[<>=]\+.*/Django>=1.8,<1.9/' $OPENSHIFT_REPO_DIR/requirements.txt >/tmp/requirements.txt
 
-sh "pip install -U -r /tmp/requirements.txt"
+sh "pip install -r /tmp/requirements.txt"
 
 # Install optional dependencies without failing if some can't be installed.
 while read line; do
@@ -63,7 +63,7 @@ while read line; do
   fi
 done < $OPENSHIFT_REPO_DIR/requirements-optional.txt
 
-sh "python ${OPENSHIFT_REPO_DIR}/setup_weblate.py develop"
+sh "python ${OPENSHIFT_REPO_DIR}/setup.py develop"
 
 if [ ! -s $OPENSHIFT_REPO_DIR/weblate/fixtures/site_data.json ]; then
   mkdir -p $OPENSHIFT_REPO_DIR/weblate/fixtures
@@ -104,12 +104,10 @@ if find_script_dir; then
   ln -sf ${OPENSHIFT_REPO_DIR}/openshift/settings.sh $SCRIPT_DIR/settings
 fi
 
-gear stop
+#gear stop
 
 # Link sources below $OPENSHIFT_REPO_DIR must be relative or they will be invalid after restore/clone operations
-ln -sf ../openshift/wsgi.py $OPENSHIFT_REPO_DIR/wsgi/application
+#ln -sf ../openshift/wsgi.py $OPENSHIFT_REPO_DIR/wsgi/application
 touch $OPENSHIFT_DATA_DIR/.installed
 
-ln -sf ../openshift/htaccess $OPENSHIFT_REPO_DIR/wsgi/.htaccess
-
-gear start
+#ln -sf ../openshift/htaccess $OPENSHIFT_REPO_DIR/wsgi/.htaccess
