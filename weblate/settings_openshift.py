@@ -136,9 +136,4 @@ for name, value in os.environ.items():
             setattr(_this_module, name[8:],
                     ast.literal_eval(Template(value).substitute(os.environ)))
         except ValueError as e:
-            if not e.args:
-                e.args = ('',)
-            e.args = (
-                "Error parsing %s = '%s': %s" % (name, value, e.args[0]),
-            ) + e.args[1:]
-            raise
+            print "Error parsing %s = '%s': %s" % (name, value, e.args[0])
