@@ -2,8 +2,8 @@ FROM centos:centos7
 MAINTAINER Daniel Tschan <tschan@puzzle.ch>
 
 RUN yum -y update; yum clean all
-RUN yum -y install epel-release
-RUN yum -y install python-pip python-django python-gunicorn python-lxml python-pillow git sqlite libxml2-devel libxslt-devel gcc python-devel libjpeg-turbo-devel openjpeg-devel freetype-devel zlib-devel libtiff-devel gettext; yum clean all
+#RUN yum -y install epel-release
+RUN yum -y install python-django python-gunicorn python-lxml python-pillow git sqlite libxml2-devel libxslt-devel gcc python-devel libjpeg-turbo-devel openjpeg-devel freetype-devel zlib-devel libtiff-devel gettext; yum clean all
 
 ENV OPENSHIFT_DATA_DIR=/var/lib/weblate OPENSHIFT_REPO_DIR=/opt/weblate HOME=/opt/weblate
 
@@ -14,6 +14,9 @@ ADD weblate /opt/weblate/weblate/
 ADD openshift /opt/weblate/openshift/
 ADD locale /opt/weblate/locale/
 
+RUN easy_install pip==1.5.6
+#RUN pip install whitenoise
+RUN pip install dj-static
 RUN /opt/weblate/openshift/install.sh
 
 RUN chown -R 1001:1001 /opt/weblate /var/lib/weblate

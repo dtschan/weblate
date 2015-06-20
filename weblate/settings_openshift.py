@@ -70,6 +70,8 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.environ['OPENSHIFT_DATA_DIR']
 
 STATIC_ROOT = os.path.join(BASE_DIR, '..', 'wsgi', 'static')
+#STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 default_keys = {'SECRET_KEY': SECRET_KEY}
 

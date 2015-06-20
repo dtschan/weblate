@@ -21,15 +21,21 @@
 
 import os
 import sys
+
 from django.core.wsgi import get_wsgi_application
+from dj_static import Cling
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'weblate.settings_openshift'
 
 sys.path.append(os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'weblate'))
 sys.path.append(os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'openshift'))
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'weblate.settings_openshift'
+#from whitenoise.django import DjangoWhiteNoise
 
 #execfile(os.path.join(
 #    os.environ['OPENSHIFT_REPO_DIR'], 'openshift', 'virtualenv.py'
 #))
 
 application = get_wsgi_application()
+#application = DjangoWhiteNoise(application)
+application = Cling(get_wsgi_application())
