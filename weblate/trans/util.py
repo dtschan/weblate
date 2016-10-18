@@ -225,7 +225,7 @@ def get_clean_env(extra=None):
     }
     if extra is not None:
         environ.update(extra)
-    variables = ('PATH', 'LD_LIBRARY_PATH')
+    variables = ('PATH', 'LD_LIBRARY_PATH', 'LD_PRELOAD')
     for var in variables:
         if var in os.environ:
             environ[var] = os.environ[var]
