@@ -13,3 +13,4 @@ djangorestframework>=3.4
 defusedxml>=0.4
 psycopg2
 gunicorn
+whitenoise
