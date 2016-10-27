@@ -596,7 +596,7 @@ CACHES = {
     }
 }
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+# SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 # REST framework settings for API
 REST_FRAMEWORK = {
