@@ -11,3 +11,4 @@ oauthlib>=0.6.3
 django_compressor>=1.5.0,!=2.0
 djangorestframework>=3.4
 defusedxml>=0.4
+psycopg2
