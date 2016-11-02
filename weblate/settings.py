@@ -432,7 +432,7 @@ if not HAVE_SYSLOG:
 # List of machine translations
 MACHINE_TRANSLATION_SERVICES = (
 #     'weblate.trans.machine.apertium.ApertiumTranslation',
-#     'weblate.trans.machine.glosbe.GlosbeTranslation',
+     'weblate.trans.machine.glosbe.GlosbeTranslation',
 #     'weblate.trans.machine.google.GoogleTranslation',
 #     'weblate.trans.machine.microsoft.MicrosoftTranslation',
 #     'weblate.trans.machine.mymemory.MyMemoryTranslation',
@@ -447,8 +447,12 @@ MT_APERTIUM_KEY = None
 
 # Microsoft Translator service, register at
 # https://datamarket.azure.com/developer/applications/
-MT_MICROSOFT_ID = None
-MT_MICROSOFT_SECRET = None
+
+if 'WEBLATE_MT_MICROSOFT_ID' in os.environ:
+    MACHINE_TRANSLATION_SERVICES += ('weblate.trans.machine.microsoft.MicrosoftTranslation',)
+
+MT_MICROSOFT_ID = os.environ.get('WEBLATE_MT_MICROSOFT_ID')
+MT_MICROSOFT_SECRET = os.environ.get('WEBLATE_MT_MICROSOFT_SECRET')
 
 # MyMemory identification email, see
 # http://mymemory.translated.net/doc/spec.php
