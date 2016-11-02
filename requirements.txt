@@ -14,3 +14,12 @@ defusedxml>=0.4
 psycopg2
 gunicorn
 whitenoise
+pyuca>=1.1
+pyLibravatar
+pydns; python_version < '3.0'
+py3dns; python_version >= '3.0'
+pytz>=2015.1
+Babel
+chardet
+python-bidi>=0.4.0
+PyYAML>=3.0
