@@ -1,0 +1,8 @@
+#!/bin/bash
+
+pushd ${HOME} >/dev/null
+if [ -d .local/lib/python2.7/site-packages ]; then
+    # all deps contents to tar stream
+    tar cf - .local/lib/python2.7/site-packages
+fi
+popd >/dev/null

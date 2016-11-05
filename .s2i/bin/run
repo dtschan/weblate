@@ -1,0 +1,41 @@
+#!/bin/bash
+
+run_5_minutely() {
+  while true; do
+    sleep 300
+
+    echo "Updating full-text index."
+    django-admin update_index
+  done
+}
+
+run_hourly() {
+  while true; do
+    echo "Clearing stale sessions."
+    django-admin clearsessions
+
+    echo "Committing pending translations."
+    django-admin commit_pending --all
+
+    sleep 3600
+  done
+}
+
+LIB_DIR="${HOME}/.local/lib/"
+if [ ! -e "${LIB_DIR}/libmapuid.so" ]; then
+  curl https://raw.githubusercontent.com/appuio/libmapuid/master/lib/libmapuid.so -o "${LIB_DIR}/libmapuid.so" && \
+  chmod 755 "${LIB_DIR}/libmapuid.so"
+fi
+
+export LD_PRELOAD="${LIB_DIR}/libmapuid.so"
+
+if [ -n "$WEBLATE_ADMIN_PASSWORD" ] ; then
+  # This will fail on consequent runs
+  django-admin createadmin --password="$WEBLATE_ADMIN_PASSWORD" --update --email="$WEBLATE_ADMIN_EMAIL" --name="$WEBLATE_ADMIN_NAME" || true
+fi
+
+run_5_minutely &
+run_hourly &
+
+# -k gthread
+exec /opt/rh/python27/root/usr/bin/python /opt/app-root/src/.local/bin/gunicorn weblate.wsgi --bind=0.0.0.0:8080 --timeout=300 --access-logfile=-

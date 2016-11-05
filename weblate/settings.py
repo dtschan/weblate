@@ -168,6 +168,9 @@ STATICFILES_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
+#STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = (
@@ -291,6 +294,7 @@ SOCIAL_AUTH_SLUGIFY_USERNAMES = True
 # Middleware
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -476,13 +480,13 @@ SITE_TITLE = os.environ.get('WEBLATE_SITE_TITLE', 'Weblate')
 
 # Whether site uses https
 ENABLE_HTTPS = os.environ.get('WEBLATE_ENABLE_HTTPS', '0') == '1'
-REDIRECT_IS_HTTPS = ENABLE_HTTPS
+#REDIRECT_IS_HTTPS = ENABLE_HTTPS
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = ENABLE_HTTPS
-SESSION_COOKIE_SECURE = True
-SESSION_COOKIE_HTTPONLY = True
-CSRF_COOKIE_SECURE = True
-CSRF_COOKIE_HTTPONLY = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+#SESSION_COOKIE_SECURE = True
+#SESSION_COOKIE_HTTPONLY = True
+#CSRF_COOKIE_SECURE = True
+#CSRF_COOKIE_HTTPONLY = True
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # URL of login
 LOGIN_URL = '%s/accounts/login/' % URL_PREFIX
@@ -652,6 +656,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = os.environ.get('WEBLATE_EMAIL_HOST', '')
 EMAIL_HOST_USER = os.environ.get('WEBLATE_EMAIL_USER', '')
 EMAIL_HOST_PASSWORD = os.environ.get('WEBLATE_EMAIL_PASSWORD', '')
-EMAIL_PORT = 587
+EMAIL_PORT = 25
 
 GOOGLE_ANALYTICS_ID = os.environ.get('WEBLATE_GOOGLE_ANALYTICS_ID', '')

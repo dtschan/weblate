@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# restore build artifacts
+if [ -e /tmp/artifacts/.local ]; then
+    mv /tmp/artifacts/.local $HOME
+fi
+
+exec /usr/libexec/s2i/assemble
