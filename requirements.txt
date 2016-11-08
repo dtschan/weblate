@@ -14,6 +14,7 @@ defusedxml>=0.4
 psycopg2
 gunicorn
 whitenoise
+brotlipy
 pyuca>=1.1
 pyLibravatar
 pydns
