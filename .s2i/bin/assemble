@@ -5,4 +5,6 @@ if [ -e /tmp/artifacts/.local ]; then
     mv /tmp/artifacts/.local $HOME
 fi
 
-exec /usr/libexec/s2i/assemble
+/usr/libexec/s2i/assemble
+
+django-admin collectstatic --noinput
