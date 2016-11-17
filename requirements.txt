@@ -1,6 +1,6 @@
 Django>=1.9
 Whoosh>=2.5.2,!=2.6.0
-translate-toolkit>=2.0.0b4
+https://github.com/dtschan/translate/archive/master.tar.gz
 lxml>=3.1.0
 Pillow
 six>=1.7.0
@@ -14,7 +14,6 @@ defusedxml>=0.4
 psycopg2
 gunicorn
 whitenoise
-brotlipy
 pyuca>=1.1
 pyLibravatar
 pydns
