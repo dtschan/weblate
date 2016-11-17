@@ -1,6 +1,6 @@
 Django>=1.9
 Whoosh>=2.5.2,!=2.6.0
-git+https://github.com/dtschan/translate.git
+git+https://github.com/dtschan/translate.git#egg=translate
 lxml>=3.1.0
 Pillow
 six>=1.7.0
