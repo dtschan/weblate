@@ -31,6 +31,8 @@ with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as readme:
 with open('requirements.txt') as requirements:
     REQUIRES = requirements.read().splitlines()
 
+REQUIRES = [r for r in REQUIRES if r.startswith('git+')]
+
 setup(
     name='Weblate',
     version='2.9',
