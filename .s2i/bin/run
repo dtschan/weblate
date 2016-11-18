@@ -2,10 +2,10 @@
 
 run_5_minutely() {
   while true; do
-    sleep 300
-
     echo "Updating full-text index."
     django-admin update_index
+
+    sleep 300
   done
 }
 
