@@ -1,6 +1,6 @@
 Django>=1.9
 Whoosh>=2.5.2,!=2.6.0
-git+https://github.com/dtschan/translate.git#egg=translate
+translate-toolkit>=2.0.0b4
 lxml>=3.1.0
 Pillow
 six>=1.7.0
@@ -21,4 +21,5 @@ pytz>=2015.1
 Babel
 chardet
 python-bidi>=0.4.0
-git+https://github.com/dtschan/pyyaml.git#egg=PyYAML
+PyYAML>=3.0
+ruaml.yaml
