@@ -23,6 +23,7 @@ import platform
 import os
 from logging.handlers import SysLogHandler
 import django
+from weblate.openshiftlib import import_env_vars
 
 #
 # Safety check for running with too old Django version
@@ -659,3 +660,5 @@ EMAIL_HOST_PASSWORD = os.environ.get('WEBLATE_EMAIL_PASSWORD', '')
 EMAIL_PORT = 25
 
 GOOGLE_ANALYTICS_ID = os.environ.get('WEBLATE_GOOGLE_ANALYTICS_ID', '')
+
+import_env_vars(os.environ, sys.modules[__name__])
