@@ -22,4 +22,4 @@ Babel
 chardet
 python-bidi>=0.4.0
 PyYAML>=3.0
-ruaml.yaml
+ruamel.yaml
