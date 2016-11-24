@@ -21,6 +21,7 @@
 from __future__ import unicode_literals
 import platform
 import os
+import sys
 from logging.handlers import SysLogHandler
 import django
 from weblate.openshiftlib import import_env_vars
