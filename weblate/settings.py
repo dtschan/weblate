@@ -24,7 +24,6 @@ import os
 import sys
 from logging.handlers import SysLogHandler
 import django
-from weblate.openshiftlib import import_env_vars
 
 #
 # Safety check for running with too old Django version
@@ -574,6 +573,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 # PRE_COMMIT_SCRIPTS = (
 # )
 
+PRE_COMMIT_SCRIPTS = os.environ('WEBLATE_PRE_COMMIT_SCRIPTS').split(',')
+
 # E-mail address that error messages come from.
 SERVER_EMAIL = os.environ['WEBLATE_SERVER_EMAIL']
 
@@ -661,5 +662,3 @@ EMAIL_HOST_PASSWORD = os.environ.get('WEBLATE_EMAIL_PASSWORD', '')
 EMAIL_PORT = 25
 
 GOOGLE_ANALYTICS_ID = os.environ.get('WEBLATE_GOOGLE_ANALYTICS_ID', '')
-
-import_env_vars(os.environ, sys.modules[__name__])
