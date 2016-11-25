@@ -573,7 +573,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 # PRE_COMMIT_SCRIPTS = (
 # )
 
-PRE_COMMIT_SCRIPTS = os.environ('WEBLATE_PRE_COMMIT_SCRIPTS').split(',')
+PRE_COMMIT_SCRIPTS = os.environ['WEBLATE_PRE_COMMIT_SCRIPTS'].split(',')
 
 # E-mail address that error messages come from.
 SERVER_EMAIL = os.environ['WEBLATE_SERVER_EMAIL']
