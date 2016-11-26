@@ -8,6 +8,6 @@ fi
 /usr/libexec/s2i/assemble
 
 mkdir -p /app/data/home
-HOME=/app/data/home pip install -r examples/requirements.txt
+HOME=/app/data/home pip install --user -r examples/requirements.txt
 
 #django-admin collectstatic --noinput
