@@ -5,6 +5,27 @@ if [ -e /tmp/artifacts/.local ]; then
     mv /tmp/artifacts/.local $HOME
 fi
 
-/usr/libexec/s2i/assemble
+echo "---> Installing application source ..."
+mv /tmp/src/* ./
 
-#django-admin collectstatic --noinput
+if [[ -f requirements.txt ]]; then
+  echo "---> Installing dependencies ..."
+  pip install -r requirements.txt
+fi
+
+if [[ -f setup.py ]]; then
+  echo "---> Installing application ..."
+  python setup.py develop
+fi
+
+#/usr/libexec/s2i/assemble
+
+django-admin collectstatic --noinput
+
+# Fix source directory permissions
+fix-permissions ./
+# set permissions for any installed artifacts
+fix-permissions /opt/app-root
+
+# remove pip temporary directory
+rm -rf /tmp/pip_build_default
