@@ -29,6 +29,9 @@ fi
 
 export LD_PRELOAD="${LIB_DIR}/libmapuid.so"
 
+mkdir -p /app/data/home
+HOME=/app/data/home pip install --user -r examples/requirements.txt
+
 if [ -n "$WEBLATE_ADMIN_PASSWORD" ] ; then
   # This will fail on consequent runs
   django-admin createadmin --password="$WEBLATE_ADMIN_PASSWORD" --update --email="$WEBLATE_ADMIN_EMAIL" --name="$WEBLATE_ADMIN_NAME" || true
