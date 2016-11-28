@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-#!/usr/bin/env python
 
 # Copyright (C) 2016 Daniel Tschan
 #
@@ -27,15 +26,12 @@ def merge(a, b, path=None):
             else:
                 a[key] = PreservedScalarString(b[key])
         else:
-            a[key] = b[key]
+            a[key] = PreservedScalarString(b[key])
     return a
 
-#sys.argv[1]
 with os.popen('git show :' + remove_prefix(sys.argv[1], os.environ['WL_PATH'] + "/")) as f:
-#with open("de.yml", 'r') as f:
     cur = ruamel.yaml.load(f, ruamel.yaml.RoundTripLoader, preserve_quotes=True)
 
-#with os.popen('git show ' + sys.argv[1]) as f:
 with open(sys.argv[1], 'r') as f:
     new = ruamel.yaml.load(f, ruamel.yaml.RoundTripLoader)
 
